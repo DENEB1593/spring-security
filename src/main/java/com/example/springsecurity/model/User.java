@@ -15,7 +15,7 @@ public class User {
 
   private LocalDateTime updatedAt;
 
-  public User() { }
+  private User() { }
 
   public User(Long seq,
              String email,
