@@ -18,8 +18,6 @@ public class MDCHandlerInterceptor implements HandlerInterceptor {
                           HttpServletResponse response,
                           Object handler) throws Exception {
 
-    log.info("ingress in interceptor");
-
     MDC.put(ClassicConstants.REQUEST_X_FORWARDED_FOR, request.getHeader("X-Forwarded-For"));
     MDC.put(ClassicConstants.REQUEST_USER_AGENT_MDC_KEY, request.getHeader("User-Agent"));
     MDC.put(ClassicConstants.REQUEST_REQUEST_URI, request.getRequestURI());

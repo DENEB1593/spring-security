@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
+import org.jasypt.encryption.StringEncryptor;
+import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
+import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +19,25 @@ import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class WebConfigure {
+
+  @Bean
+  public StringEncryptor encryptor(JasyptConfigure jasyptConfigure) {
+    System.out.println("jasypt password : " + jasyptConfigure.getPassword());
+    PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+    SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+    config.setPassword(jasyptConfigure.getPassword());
+    config.setAlgorithm("PBEWITHHMACSHA512ANDAES_256");
+    config.setKeyObtentionIterations("1000");
+    config.setPoolSize("1");
+    config.setProviderName("SunJCE");
+    config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+    config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
+    config.setStringOutputType("base64");
+    encryptor.setConfig(config);
+    return encryptor;
+  }
+
+
   @Bean
   public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilder() {
     return builder -> {
