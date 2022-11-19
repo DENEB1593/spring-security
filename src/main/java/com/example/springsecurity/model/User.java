@@ -35,6 +35,8 @@ public class User {
     this.email = request.getEmail();
     this.password = request.getPassword();
     this.birth = request.getBirth();
+    this.createdAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
   }
 
 

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -29,24 +28,22 @@ public class UserRepository {
 
   public Optional<User> findByEmail(String email) {
     String sql = "select * from users where email = ?";
-    SqlParameterSource parameter = new MapSqlParameterSource()
-      .addValue("email", email);
 
-    List<User> result = jdbcTemplate.query(sql, rowMapper, parameter);
+    List<User> result = jdbcTemplate.query(sql, rowMapper, new Object[] {email});
 
     return Optional.ofNullable(result.isEmpty() ? null : result.get(0));
   }
   public User insert(User user) {
-    String sql = "insert into users (email, password, birth, createdAt, updatedAt) values (?, ?, ?, ?, ?)";
+    String sql = "insert into users (email, password, birth, created_at, updated_at) values (?, ?, ?, ?, ?)";
 
     KeyHolder keyHolder = new GeneratedKeyHolder();
     jdbcTemplate.update(con -> {
-      PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+      PreparedStatement pstmt = con.prepareStatement(sql, new String[] {"seq"});
       pstmt.setString(1, user.getEmail());
       pstmt.setString(2, user.getPassword());
       pstmt.setString(3, user.getBirth());
-      pstmt.setTimestamp(4, Timestamp.from(Instant.now()));
-      pstmt.setTimestamp(5, Timestamp.from(Instant.now()));
+      pstmt.setTimestamp(4, Timestamp.valueOf(user.getCreatedAt()));
+      pstmt.setTimestamp(5, Timestamp.valueOf(user.getUpdatedAt()));
       return pstmt;
     }, keyHolder);
 
@@ -63,7 +60,7 @@ public class UserRepository {
     .email(rs.getString("email"))
     .password(rs.getString("password"))
     .birth(rs.getString("birth"))
-    .createdAt(rs.getObject("createdAt", LocalDateTime.class))
-    .updatedAt(rs.getObject("updatedAt", LocalDateTime.class))
+    .createdAt(rs.getObject("created_at", LocalDateTime.class))
+    .updatedAt(rs.getObject("updated_at", LocalDateTime.class))
     .build();
 }
