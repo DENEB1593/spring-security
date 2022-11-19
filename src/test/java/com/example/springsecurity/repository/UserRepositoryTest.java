@@ -54,11 +54,19 @@ public class UserRepositoryTest {
 
   @Test
   @Order(2)
-  public void 사용자_이메일_조회_존재시() {
+  public void 사용자_이메일_조회_존재() {
     User user = userRepository.findByEmail(email).orElse(null);
 
     assertThat(user).isNotNull();
     assertThat(user.getEmail()).isEqualTo(email);
+  }
+
+  @Test
+  @Order(3)
+  public void 사용자_이메일_조회_미존재() {
+    User user = userRepository.findByEmail("empty@email.com").orElse(null);
+
+    assertThat(user).isNull();
   }
 
 }
