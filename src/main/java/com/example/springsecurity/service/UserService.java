@@ -26,7 +26,7 @@ public class UserService {
 
   @Transactional(readOnly = true)
   public Optional<User> findByEmail(String email) {
-    return ofNullable(userRepository.findByEmail(email));
+    return userRepository.findByEmail(email);
   }
 
   public User join(JoinRequest request) {

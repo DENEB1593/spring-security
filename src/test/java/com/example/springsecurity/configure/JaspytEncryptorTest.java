@@ -45,7 +45,7 @@ public class JaspytEncryptorTest {
   private StringEncryptor setUpEncryptor() {
     PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
     SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-    config.setPassword("2fUcD+3+g53BZkMNVDgRufL7ULuSf8r5");
+    config.setPassword("password1!");
     config.setAlgorithm("PBEWithMD5AndDES");
     config.setKeyObtentionIterations("1000");
     config.setPoolSize("1");

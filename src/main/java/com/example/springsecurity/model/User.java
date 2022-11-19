@@ -37,6 +37,7 @@ public class User {
     this.birth = request.getBirth();
   }
 
+
   public Long getSeq() {
     return seq;
   }
@@ -71,5 +72,66 @@ public class User {
       .append("createdAt", this.createdAt)
       .append("updatedAt", this.updatedAt)
       .toString();
+  }
+
+  static public class Builder {
+
+    private Long seq;
+
+    private String email;
+
+    private String password;
+
+    private String birth;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    public Builder() { }
+
+    public Builder(User user) {
+      this.seq = user.seq;
+      this.email = user.email;
+      this.password = user.password;
+      this.birth = user.birth;
+      this.createdAt = user.createdAt;
+      this.updatedAt = user.updatedAt;
+    }
+
+    public Builder seq(Long seq) {
+      this.seq = seq;
+      return this;
+    }
+
+    public Builder email(String email) {
+      this.email = email;
+      return this;
+    }
+
+    public Builder password(String password) {
+      this.password = password;
+      return this;
+    }
+
+    public Builder birth(String birth) {
+      this.birth = birth;
+      return this;
+    }
+
+    public Builder createdAt(LocalDateTime createdAt) {
+      this.createdAt = createdAt;
+      return this;
+    }
+
+    public Builder updatedAt(LocalDateTime updatedAt) {
+      this.updatedAt = updatedAt;
+      return this;
+    }
+
+    public User build() {
+      return new User(seq, email, password, birth, createdAt, updatedAt);
+    }
+
   }
 }
