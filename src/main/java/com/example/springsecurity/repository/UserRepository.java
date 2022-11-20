@@ -26,11 +26,14 @@ public class UserRepository {
     this.jdbcTemplate = jdbcTemplate;
   }
 
+  public List<User> findAll() {
+    String sql = "select * from users";
+    return jdbcTemplate.query(sql, rowMapper);
+  }
+
   public Optional<User> findByEmail(String email) {
     String sql = "select * from users where email = ?";
-
-    List<User> result = jdbcTemplate.query(sql, rowMapper, new Object[] {email});
-
+    List<User> result = jdbcTemplate.query(sql, rowMapper, email);
     return Optional.ofNullable(result.isEmpty() ? null : result.get(0));
   }
   public User insert(User user) {
@@ -52,6 +55,14 @@ public class UserRepository {
     return new User.Builder(user)
       .seq(seq)
       .build();
+  }
+
+  public void update(User user) {
+    String sql = "update users set password = ?, birth = ?, updated_at = ?";
+   jdbcTemplate.update(sql,
+     user.getPassword(),
+     user.getBirth(),
+     Timestamp.valueOf(LocalDateTime.now()));
   }
 
   private static RowMapper<User> rowMapper = (rs, rowNum) ->

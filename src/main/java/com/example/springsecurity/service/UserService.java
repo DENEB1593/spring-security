@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static java.util.Optional.*;
-
 @Service
 public class UserService {
 
@@ -22,6 +20,7 @@ public class UserService {
   public UserService(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
+
 
 
   @Transactional(readOnly = true)
