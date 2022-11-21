@@ -18,6 +18,7 @@ public class UserDto {
   public UserDto(User user) {
     this.seq = user.getSeq();
     this.email = user.getEmail();
+    this.birth = user.getBirth();
     this.createdAt = user.getCreatedAt();
     this.updatedAt = user.getUpdatedAt();
   }

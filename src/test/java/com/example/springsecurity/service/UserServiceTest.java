@@ -31,7 +31,7 @@ class UserServiceTest {
   private String birth;
 
   @BeforeAll
-  public void setUp() {
+  void setUp() {
     email = "service_test@email.com";
     password = "1234";
     birth = "20000817";
@@ -40,7 +40,7 @@ class UserServiceTest {
   @Test
   @Order(1)
   @DisplayName("사용자_추가")
-  public void joinTest() {
+  void joinTest() {
     JoinRequest request = new JoinRequest(email, password, birth);
     User saved = userService.join(request);
 
@@ -54,7 +54,7 @@ class UserServiceTest {
   @Test
   @Order(2)
   @DisplayName("사용자_이메일_조회")
-  public void findByEmailTest() {
+  void findByEmailTest() {
     User saved = userService.findByEmail(email).orElse(null);
 
     assertThat(saved).isNotNull();
@@ -64,7 +64,7 @@ class UserServiceTest {
   @Test
   @Order(3)
   @DisplayName("사용자_수정")
-  public void updateTest() {
+  void updateTest() {
     User before = userService.findByEmail(email).orElse(null);
 
 

@@ -33,7 +33,7 @@ public class UserRepositoryTest {
   private Long savedSeq;
 
   @BeforeAll
-  public void setUp() {
+  void setUp() {
     email = "lee@gmail.com";
     password = "1234";
     birth = "19930101";
@@ -42,7 +42,7 @@ public class UserRepositoryTest {
   @Test
   @Order(1)
   @DisplayName("사용자_전체_조회")
-  public void findAllTest() {
+  void findAllTest() {
     List<User> result = userRepository.findAll();
     assertThat(result).hasSizeGreaterThan(0);
   }
@@ -50,7 +50,7 @@ public class UserRepositoryTest {
   @Test
   @Order(2)
   @DisplayName("사용자_추가")
-  public void joinTest() {
+  void joinTest() {
     JoinRequest request = new JoinRequest(email, password, birth);
     User user = new User(request);
 
@@ -64,7 +64,7 @@ public class UserRepositoryTest {
   @Test
   @Order(3)
   @DisplayName("사용자_이메일_조회")
-  public void findByEmailTest() {
+  void findByEmailTest() {
     User user = userRepository.findByEmail(email).orElse(null);
 
     assertThat(user).isNotNull();
@@ -74,7 +74,7 @@ public class UserRepositoryTest {
   @Test
   @Order(4)
   @DisplayName("사용자_이메일_조회(미존재)")
-  public void findByEmailIfNotExists() {
+  void findByEmailIfNotExists() {
     User user = userRepository.findByEmail("empty@email.com").orElse(null);
 
     assertThat(user).isNull();
@@ -83,7 +83,7 @@ public class UserRepositoryTest {
   @Test
   @Order(5)
   @DisplayName("사용자_정보_수정")
-  public void updateTest() {
+  void updateTest() {
     User given = userRepository.findByEmail(email).orElse(null);
 
     assertThat(given).isNotNull();
