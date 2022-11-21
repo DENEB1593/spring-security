@@ -1,6 +1,7 @@
 package com.example.springsecurity.model;
 
 import com.example.springsecurity.controller.JoinRequest;
+import com.example.springsecurity.controller.UpdateRequest;
 import org.springframework.core.style.ToStringCreator;
 
 import java.time.LocalDateTime;
@@ -36,6 +37,12 @@ public class User {
     this.password = request.getPassword();
     this.birth = request.getBirth();
     this.createdAt = LocalDateTime.now();
+    this.updatedAt = LocalDateTime.now();
+  }
+
+  public User(UpdateRequest request) {
+    this.password = request.getPassword();
+    this.birth = request.getBirth();
     this.updatedAt = LocalDateTime.now();
   }
 
