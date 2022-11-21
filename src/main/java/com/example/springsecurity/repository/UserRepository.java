@@ -62,7 +62,7 @@ public class UserRepository {
    jdbcTemplate.update(sql,
      user.getPassword(),
      user.getBirth(),
-     Timestamp.valueOf(user.getUpdatedAt()));
+     Timestamp.valueOf(LocalDateTime.now()));
   }
 
   private static RowMapper<User> rowMapper = (rs, rowNum) ->

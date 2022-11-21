@@ -17,8 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserRepositoryTest {
 
   private final static Logger log = LoggerFactory.getLogger(UserRepositoryTest.class);
@@ -39,14 +39,16 @@ public class UserRepositoryTest {
 
   @Test
   @Order(1)
-  public void 사용자_전체_조회() {
+  @DisplayName("사용자_전체_조회")
+  public void findAllTest() {
     List<User> result = userRepository.findAll();
     assertThat(result).hasSizeGreaterThan(0);
   }
 
   @Test
   @Order(2)
-  public void 사용자_추가() {
+  @DisplayName("사용자_추가")
+  public void joinTest() {
     JoinRequest request = new JoinRequest(email, password, birth);
     User user = new User(request);
 
@@ -59,7 +61,8 @@ public class UserRepositoryTest {
 
   @Test
   @Order(3)
-  public void 사용자_이메일_조회_존재() {
+  @DisplayName("사용자_이메일_조회")
+  public void findByEmailTest() {
     User user = userRepository.findByEmail(email).orElse(null);
 
     assertThat(user).isNotNull();
@@ -68,7 +71,8 @@ public class UserRepositoryTest {
 
   @Test
   @Order(4)
-  public void 사용자_이메일_조회_미존재() {
+  @DisplayName("사용자_이메일_조회(미존재)")
+  public void findByEmailIfNotExists() {
     User user = userRepository.findByEmail("empty@email.com").orElse(null);
 
     assertThat(user).isNull();
@@ -76,7 +80,8 @@ public class UserRepositoryTest {
 
   @Test
   @Order(5)
-  public void 사용자_정보_수정() {
+  @DisplayName("사용자_정보_수정")
+  public void updateTest() {
     User given = userRepository.findByEmail(email).orElse(null);
 
     assertThat(given).isNotNull();
