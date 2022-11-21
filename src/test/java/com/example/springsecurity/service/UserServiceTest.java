@@ -1,19 +1,17 @@
 package com.example.springsecurity.service;
 
 import com.example.springsecurity.controller.JoinRequest;
+import com.example.springsecurity.controller.UpdateRequest;
 import com.example.springsecurity.model.User;
-import com.example.springsecurity.repository.UserRepository;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -57,14 +55,38 @@ class UserServiceTest {
   @Order(2)
   @DisplayName("사용자_이메일_조회")
   public void findByEmailTest() {
+    User saved = userService.findByEmail(email).orElse(null);
 
+    assertThat(saved).isNotNull();
+    assertThat(saved.getEmail()).isEqualTo(email);
   }
 
   @Test
   @Order(3)
   @DisplayName("사용자_수정")
   public void updateTest() {
+    User before = userService.findByEmail(email).orElse(null);
 
+
+    assertThat(before).isNotNull();
+
+    String modifyPassword = "1111";
+    String modifyBirth = "19991205";
+
+    UpdateRequest request = new UpdateRequest(
+      before.getSeq(),
+      modifyPassword,
+      modifyBirth);
+
+    userService.update(request);
+
+    User after = userService.findByEmail(email).orElse(null);
+
+    SoftAssertions bundle = new SoftAssertions();
+    bundle.assertThat(after).isNotNull();
+    bundle.assertThat(after.getPassword()).isEqualTo(modifyPassword);
+    bundle.assertThat(after.getBirth()).isEqualTo(modifyBirth);
+    bundle.assertAll();
   }
 
 }

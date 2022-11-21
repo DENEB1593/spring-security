@@ -30,6 +30,8 @@ public class UserRepositoryTest {
   private String password;
   private String birth;
 
+  private Long savedSeq;
+
   @BeforeAll
   public void setUp() {
     email = "lee@gmail.com";

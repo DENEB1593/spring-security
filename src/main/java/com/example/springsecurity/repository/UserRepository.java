@@ -58,11 +58,12 @@ public class UserRepository {
   }
 
   public void update(User user) {
-    String sql = "update users set password = ?, birth = ?, updated_at = ?";
+    String sql = "update users set password = ?, birth = ?, updated_at = ? where seq = ?";
    jdbcTemplate.update(sql,
      user.getPassword(),
      user.getBirth(),
-     Timestamp.valueOf(LocalDateTime.now()));
+     Timestamp.valueOf(LocalDateTime.now()),
+     user.getSeq());
   }
 
   private static RowMapper<User> rowMapper = (rs, rowNum) ->

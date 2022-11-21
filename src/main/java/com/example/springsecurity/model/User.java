@@ -41,6 +41,7 @@ public class User {
   }
 
   public User(UpdateRequest request) {
+    this.seq = request.getSeq();
     this.password = request.getPassword();
     this.birth = request.getBirth();
     this.updatedAt = LocalDateTime.now();
