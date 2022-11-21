@@ -34,7 +34,7 @@ public class JoinRequest {
   public String toString() {
     return new ToStringCreator(this)
       .append("email", this.email)
-      .append("password", this.password)
+      .append("password", "[protected]")
       .append("birth", this.birth)
       .toString();
   }

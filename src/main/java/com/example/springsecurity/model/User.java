@@ -77,7 +77,7 @@ public class User {
     return new ToStringCreator(this)
       .append("seq", this.seq)
       .append("email", this.email)
-      .append("password", this.password)
+      .append("password", "[protected]")
       .append("birth", this.birth)
       .append("createdAt", this.createdAt)
       .append("updatedAt", this.updatedAt)
