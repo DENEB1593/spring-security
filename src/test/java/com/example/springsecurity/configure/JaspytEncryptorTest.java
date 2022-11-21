@@ -5,6 +5,7 @@ import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -21,6 +22,7 @@ public class JaspytEncryptorTest {
   }
 
   @Test
+  @Disabled
   public void enc() {
     String password = "password1!";
     String encPassword = encryptor.encrypt(password);
@@ -32,6 +34,7 @@ public class JaspytEncryptorTest {
   }
 
   @Test
+  @Disabled
   public void dbPasswordEnc() {
     String password = "1234";
     String encPassword = encryptor.encrypt(password);
