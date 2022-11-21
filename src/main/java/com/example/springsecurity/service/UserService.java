@@ -28,11 +28,13 @@ public class UserService {
     return userRepository.findByEmail(email);
   }
 
+  @Transactional
   public User join(JoinRequest request) {
     User user = new User(request);
     return userRepository.insert(user);
   }
 
+  @Transactional
   public void update(UpdateRequest request) {
     User user = new User(request);
     userRepository.update(user);

@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -45,7 +46,7 @@ class UserControllerTest {
 
   @BeforeAll
   void setUp() {
-    email = "service_test@email.com";
+    email = "controller_test@email.com";
     password = "1234";
     birth = "20000817";
   }
@@ -126,4 +127,5 @@ class UserControllerTest {
 
     assertThat(response).isFalse();
   }
+
 }
