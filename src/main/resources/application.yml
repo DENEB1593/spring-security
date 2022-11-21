@@ -4,10 +4,10 @@ jasypt:
         password: 2fUcD+3+g53BZkMNVDgRufL7ULuSf8r5
 spring:
     datasource:
-        driverClassName: org.h2.Driver
-        password: ''
-        url: jdbc:h2:mem:deneb1593
+        driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        url: jdbc:log4jdbc:h2:mem:deneb1593
         username: sa
+        password: ''
     h2:
         console:
             enabled: true
